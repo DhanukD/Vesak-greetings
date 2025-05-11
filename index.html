@@ -399,10 +399,32 @@
             document.querySelector(`.card[data-card="${cardNumber}"]`).classList.add('selected');
         }
         
-        function createCard() {
-            if (!selectedCard) {
-                alert('Please select a card design first.');
-                return;
+       function createCard() {
+    const card = document.getElementById('card');
+    const name = document.getElementById('name').value;
+    const message = document.getElementById('message').value;
+
+    document.getElementById('cardName').innerText = name;
+    document.getElementById('cardMessage').innerText = message;
+    card.classList.remove('hidden');
+
+    // Create the long share URL
+    const baseUrl = window.location.href.split('?')[0];
+    const shareUrl = `${baseUrl}?name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`;
+
+    // Call TinyURL API to shorten the URL
+    fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(shareUrl)}`)
+        .then(response => response.text())
+        .then(shortUrl => {
+            document.getElementById('shareUrl').value = shortUrl;
+            document.getElementById('shareSection').classList.remove('hidden');
+        })
+        .catch(err => {
+            console.error('URL shortening failed:', err);
+            document.getElementById('shareUrl').value = shareUrl;
+            document.getElementById('shareSection').classList.remove('hidden');
+        });
+
             }
             
             const senderName = document.getElementById('senderName').value.trim();
