@@ -396,35 +396,13 @@
             });
             
             // Add selected class to chosen card
-            document.querySelector(`.card[data-card="${cardNumber}"]`).classList.add('selected');
+            document.querySelector(.card[data-card="${cardNumber}"]).classList.add('selected');
         }
         
-       function createCard() {
-    const card = document.getElementById('card');
-    const name = document.getElementById('name').value;
-    const message = document.getElementById('message').value;
-
-    document.getElementById('cardName').innerText = name;
-    document.getElementById('cardMessage').innerText = message;
-    card.classList.remove('hidden');
-
-    // Create the long share URL
-    const baseUrl = window.location.href.split('?')[0];
-    const shareUrl = `${baseUrl}?name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`;
-
-    // Call TinyURL API to shorten the URL
-    fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(shareUrl)}`)
-        .then(response => response.text())
-        .then(shortUrl => {
-            document.getElementById('shareUrl').value = shortUrl;
-            document.getElementById('shareSection').classList.remove('hidden');
-        })
-        .catch(err => {
-            console.error('URL shortening failed:', err);
-            document.getElementById('shareUrl').value = shareUrl;
-            document.getElementById('shareSection').classList.remove('hidden');
-        });
-
+        function createCard() {
+            if (!selectedCard) {
+                alert('Please select a card design first.');
+                return;
             }
             
             const senderName = document.getElementById('senderName').value.trim();
@@ -441,7 +419,7 @@
             document.getElementById('cardPreview').classList.remove('hidden');
             
             // Update preview with the actual card image
-            document.getElementById('previewImage').src = `Card${selectedCard}.png`;
+            document.getElementById('previewImage').src = Card${selectedCard}.png;
             document.getElementById('personalMessageDisplay').textContent = personalMessage;
             document.getElementById('senderNameDisplay').textContent = senderName;
             document.getElementById('recipientNameDisplay').textContent = recipientName;
@@ -455,7 +433,7 @@
                 shareParams.append('msg', encodeURIComponent(personalMessage));
             }
             
-            const shareUrl = `${window.location.origin}${window.location.pathname}?${shareParams.toString()}`;
+            const shareUrl = ${window.location.origin}${window.location.pathname}?${shareParams.toString()};
             document.getElementById('shareUrl').value = shareUrl;
             
             // Remove any existing click event listeners
@@ -484,12 +462,12 @@
             document.getElementById('receivedCard').classList.remove('hidden');
             
             // Update received card with the actual card image
-            document.getElementById('receivedImage').src = `Card${cardNumber}.png`;
+            document.getElementById('receivedImage').src = Card${cardNumber}.png;
             document.getElementById('receivedMessage').textContent = message;
             document.getElementById('receivedFrom').textContent = fromName;
             
             // Update page title
-            document.title = `Vesak Greeting from ${fromName}`;
+            document.title = Vesak Greeting from ${fromName};
         }
         
         function copyShareLink() {
@@ -535,7 +513,7 @@
             const recipientName = document.getElementById('recipientNameDisplay').textContent;
             const personalMessage = document.getElementById('personalMessageDisplay').textContent;
             
-            const fullMessage = `Here's a Vesak Greeting for you!\n\nසුබ වෙසක් මංගල්යක් වේවා!\n\n${personalMessage}\n\nWith love,\n${senderName}`;
+            const fullMessage = Here's a Vesak Greeting for you!\n\nසුබ වෙසක් මංගල්යක් වේවා!\n\n${personalMessage}\n\nWith love,\n${senderName};
             
             if (navigator.share) {
                 navigator.share({
@@ -551,3 +529,4 @@
     </script>
 </body>
 </html>
+
