@@ -158,11 +158,11 @@
         .card-front, .card-back {
             position: absolute;
             width: 100%;
-            height: 400%;
+            height: 100%;
             backface-visibility: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .card-front {
@@ -358,7 +358,6 @@
                     </div>
                 </div>
                 <p class="flip-instructions">Click the card to flip it</p>
-                <button onclick="shareCard()" style="margin-top: 10px;">Share Card</button>
             </div>
         </div>
         
@@ -413,28 +412,7 @@
                 alert('Please enter both your name and the recipient\'s name.');
                 return;
             }
-
-            function shareCard() {
-          const message = document.getElementById('greeting').value.trim();
-          const sender = document.getElementById('sender').value.trim();
-
-  if (!message || !sender) {
-    alert('Please enter both a message and your name.');
-    return;
-  }
-
-  const fullMessage = `Here's a Vesak Greeting for you!\n\n"${message}"\n\n– ${sender}`;
-
-  if (navigator.share) {
-    navigator.share({
-      title: 'Vesak Greeting',
-      text: fullMessage,
-      url: window.location.href, // or a custom link
-    }).catch((err) => console.error('Error sharing:', err));
-  } else {
-    alert('Sharing is not supported on this device. Please copy and share manually.');
-  }
-
+            
             // Hide card creator and show preview
             document.getElementById('cardCreator').classList.add('hidden');
             document.getElementById('cardPreview').classList.remove('hidden');
