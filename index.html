@@ -269,19 +269,19 @@
             <h2>Step 1: Choose a card design</h2>
             <div class="card-selection">
                 <div class="card" data-card="1" onclick="selectCard(1)">
-                    <img src="/api/placeholder/250/350" alt="Vesak card design 1">
+                    <img src="Card1.jpg" alt="Vesak card design 1">
                     <div class="card-label">Lotus Design</div>
                 </div>
                 <div class="card" data-card="2" onclick="selectCard(2)">
-                    <img src="/api/placeholder/250/350" alt="Vesak card design 2">
+                    <img src="Card2.jpg" alt="Vesak card design 2">
                     <div class="card-label">Buddha Design</div>
                 </div>
                 <div class="card" data-card="3" onclick="selectCard(3)">
-                    <img src="/api/placeholder/250/350" alt="Vesak card design 3">
+                    <img src="Card3.jpg" alt="Vesak card design 3">
                     <div class="card-label">Lantern Design</div>
                 </div>
                 <div class="card" data-card="4" onclick="selectCard(4)">
-                    <img src="/api/placeholder/250/350" alt="Vesak card design 4">
+                    <img src="Card4.jpg" alt="Vesak card design 4">
                     <div class="card-label">Temple Design</div>
                 </div>
             </div>
@@ -313,7 +313,7 @@
             <h2>Your Vesak Greeting Card</h2>
             <div class="card-inner">
                 <div class="card-front">
-                    <img id="previewImage" class="card-preview-img" src="card${cardNumber}.jpg" alt="Card front">
+                    <img id="previewImage" class="card-preview-img" src="" alt="Card front">
                 </div>
                 <div class="card-back">
                     <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
@@ -343,7 +343,7 @@
             <div class="card-preview">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img id="receivedImage" class="card-preview-img" src="card${cardNumber}.jpg" alt="Card front">
+                        <img id="receivedImage" class="card-preview-img" src="" alt="Card front">
                     </div>
                     <div class="card-back">
                         <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
@@ -412,8 +412,8 @@
             document.getElementById('cardCreator').classList.add('hidden');
             document.getElementById('cardPreview').classList.remove('hidden');
             
-            // Update preview
-            document.getElementById('previewImage').src = `card${cardNumber}.jpg`;
+            // Update preview with the actual card image
+            document.getElementById('previewImage').src = `Card${selectedCard}.jpg`;
             document.getElementById('personalMessageDisplay').textContent = personalMessage;
             document.getElementById('senderNameDisplay').textContent = senderName;
             document.getElementById('recipientNameDisplay').textContent = recipientName;
@@ -424,26 +424,31 @@
             shareParams.append('from', senderName);
             shareParams.append('to', recipientName);
             if (personalMessage) {
-                shareParams.append('msg', personalMessage);
+                shareParams.append('msg', encodeURIComponent(personalMessage));
             }
             
             const shareUrl = `${window.location.origin}${window.location.pathname}?${shareParams.toString()}`;
             document.getElementById('shareUrl').value = shareUrl;
+            
+            // Add flip functionality to the created card
+            document.getElementById('cardPreview').addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
         }
         
         function showReceivedCard(params) {
             const cardNumber = params.get('card');
             const fromName = params.get('from');
             const toName = params.get('to');
-            const message = params.get('msg') || '';
+            const message = params.get('msg') ? decodeURIComponent(params.get('msg')) : '';
             
             // Hide card creator and show received card
             document.getElementById('cardCreator').classList.add('hidden');
             document.getElementById('cardPreview').classList.add('hidden');
             document.getElementById('receivedCard').classList.remove('hidden');
             
-            // Update received card
-            document.getElementById('receivedImage').src = `card${cardNumber}.jpg`;
+            // Update received card with the actual card image
+            document.getElementById('receivedImage').src = `Card${cardNumber}.jpg`;
             document.getElementById('receivedMessage').textContent = message;
             document.getElementById('receivedFrom').textContent = fromName;
             
