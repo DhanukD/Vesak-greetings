@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vesak Festival Greeting Cards</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #4b0082;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .card-selection {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            width: 250px;
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card.selected {
+            border: 4px solid #9932cc;
+        }
+        
+        .card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(75, 0, 130, 0.7);
+            color: white;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: #9932cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #7b2cbf;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Card Preview */
+        .card-preview {
+            max-width: 600px;
+            margin: 40px auto;
+            perspective: 1000px;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .card-preview.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-front {
+            background-color: #fff;
+        }
+        
+        .card-back {
+            background-color: #fff;
+            transform: rotateY(180deg);
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .card-message {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4b0082;
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 20px;
+        }
+        
+        .card-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .flip-instructions {
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .share-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .share-url {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .success-message {
+            background-color: #dff2bf;
+            color: #4f8a10;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .vesak-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .card {
+                width: 200px;
+                height: 280px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                width: 150px;
+                height: 210px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vesak Festival Greeting Cards</h1>
+            <p class="subtitle">Send beautiful Vesak wishes to your loved ones</p>
+        </header>
+        
+        <div id="cardCreator" class="card-creator">
+            <h2>Step 1: Choose a card design</h2>
+            <div class="card-selection">
+                <div class="card" data-card="1" onclick="selectCard(1)">
+                    <img src="/api/placeholder/250/350" alt="Vesak card design 1">
+                    <div class="card-label">Lotus Design</div>
+                </div>
+                <div class="card" data-card="2" onclick="selectCard(2)">
+                    <img src="/api/placeholder/250/350" alt="Vesak card design 2">
+                    <div class="card-label">Buddha Design</div>
+                </div>
+                <div class="card" data-card="3" onclick="selectCard(3)">
+                    <img src="/api/placeholder/250/350" alt="Vesak card design 3">
+                    <div class="card-label">Lantern Design</div>
+                </div>
+                <div class="card" data-card="4" onclick="selectCard(4)">
+                    <img src="/api/placeholder/250/350" alt="Vesak card design 4">
+                    <div class="card-label">Temple Design</div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Step 2: Personalize your card</h2>
+                <div id="cardForm">
+                    <div class="form-group">
+                        <label for="senderName">Your Name:</label>
+                        <input type="text" id="senderName" placeholder="Enter your name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipientName">Recipient's Name:</label>
+                        <input type="text" id="recipientName" placeholder="Enter recipient's name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personalMessage">Additional Personal Message (Optional):</label>
+                        <textarea id="personalMessage" placeholder="Write your personal message here..."></textarea>
+                    </div>
+                    
+                    <button onclick="createCard()">Create Card</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="cardPreview" class="card-preview hidden">
+            <h2>Your Vesak Greeting Card</h2>
+            <div class="card-inner">
+                <div class="card-front">
+                    <img id="previewImage" class="card-preview-img" src="/api/placeholder/600/400" alt="Card front">
+                </div>
+                <div class="card-back">
+                    <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
+                    <p class="card-message">May the peace and blessings of Vesak be with you.</p>
+                    <p id="personalMessageDisplay"></p>
+                    <p class="signature">With love,<br><span id="senderNameDisplay"></span></p>
+                </div>
+            </div>
+            <p class="flip-instructions">Click the card to flip it</p>
+            
+            <div class="share-section">
+                <h3>Share this card with <span id="recipientNameDisplay"></span></h3>
+                <p>Copy this link and send it to them:</p>
+                <input type="text" id="shareUrl" class="share-url" readonly>
+                <button onclick="copyShareLink()">Copy Link</button>
+                <div id="copySuccess" class="success-message hidden">Link copied successfully!</div>
+                <p>When they open this link, they'll see your special Vesak greeting.</p>
+                <button onclick="resetForm()">Create Another Card</button>
+            </div>
+        </div>
+        
+        <div id="receivedCard" class="hidden">
+            <div class="success-message">
+                <p>You've received a Vesak greeting card! Click to open it.</p>
+            </div>
+            
+            <div class="card-preview">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img id="receivedImage" class="card-preview-img" src="/api/placeholder/600/400" alt="Card front">
+                    </div>
+                    <div class="card-back">
+                        <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
+                        <p class="card-message">May the peace and blessings of Vesak be with you.</p>
+                        <p id="receivedMessage"></p>
+                        <p class="signature">With love,<br><span id="receivedFrom"></span></p>
+                    </div>
+                </div>
+                <p class="flip-instructions">Click the card to flip it</p>
+            </div>
+        </div>
+        
+        <footer class="vesak-footer">
+            <p>Celebrate the spirit of Vesak with peace, love, and happiness.</p>
+        </footer>
+    </div>
+
+    <script>
+        let selectedCard = null;
+        
+        // Check if URL has parameters (someone received a card)
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('card') && urlParams.has('from') && urlParams.has('to')) {
+                showReceivedCard(urlParams);
+            } else {
+                document.getElementById('cardCreator').classList.remove('hidden');
+            }
+            
+            // Add click listener for card flipping
+            document.querySelectorAll('.card-preview').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                });
+            });
+        };
+        
+        function selectCard(cardNumber) {
+            selectedCard = cardNumber;
+            
+            // Remove selected class from all cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to chosen card
+            document.querySelector(`.card[data-card="${cardNumber}"]`).classList.add('selected');
+        }
+        
+        function createCard() {
+            if (!selectedCard) {
+                alert('Please select a card design first.');
+                return;
+            }
+            
+            const senderName = document.getElementById('senderName').value.trim();
+            const recipientName = document.getElementById('recipientName').value.trim();
+            const personalMessage = document.getElementById('personalMessage').value.trim();
+            
+            if (!senderName || !recipientName) {
+                alert('Please enter both your name and the recipient\'s name.');
+                return;
+            }
+            
+            // Hide card creator and show preview
+            document.getElementById('cardCreator').classList.add('hidden');
+            document.getElementById('cardPreview').classList.remove('hidden');
+            
+            // Update preview
+            document.getElementById('previewImage').src = `/api/placeholder/600/400?text=Vesak Card ${selectedCard}`;
+            document.getElementById('personalMessageDisplay').textContent = personalMessage;
+            document.getElementById('senderNameDisplay').textContent = senderName;
+            document.getElementById('recipientNameDisplay').textContent = recipientName;
+            
+            // Generate share URL
+            const shareParams = new URLSearchParams();
+            shareParams.append('card', selectedCard);
+            shareParams.append('from', senderName);
+            shareParams.append('to', recipientName);
+            if (personalMessage) {
+                shareParams.append('msg', personalMessage);
+            }
+            
+            const shareUrl = `${window.location.origin}${window.location.pathname}?${shareParams.toString()}`;
+            document.getElementById('shareUrl').value = shareUrl;
+        }
+        
+        function showReceivedCard(params) {
+            const cardNumber = params.get('card');
+            const fromName = params.get('from');
+            const toName = params.get('to');
+            const message = params.get('msg') || '';
+            
+            // Hide card creator and show received card
+            document.getElementById('cardCreator').classList.add('hidden');
+            document.getElementById('cardPreview').classList.add('hidden');
+            document.getElementById('receivedCard').classList.remove('hidden');
+            
+            // Update received card
+            document.getElementById('receivedImage').src = `/api/placeholder/600/400?text=Vesak Card ${cardNumber}`;
+            document.getElementById('receivedMessage').textContent = message;
+            document.getElementById('receivedFrom').textContent = fromName;
+            
+            // Update page title
+            document.title = `Vesak Greeting from ${fromName}`;
+        }
+        
+        function copyShareLink() {
+            const shareUrlInput = document.getElementById('shareUrl');
+            shareUrlInput.select();
+            document.execCommand('copy');
+            
+            // Show success message
+            const successMsg = document.getElementById('copySuccess');
+            successMsg.classList.remove('hidden');
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 3000);
+        }
+        
+        function resetForm() {
+            // Reset form and show card creator again
+            document.getElementById('cardCreator').classList.remove('hidden');
+            document.getElementById('cardPreview').classList.add('hidden');
+            
+            // Clear form fields
+            document.getElementById('senderName').value = '';
+            document.getElementById('recipientName').value = '';
+            document.getElementById('personalMessage').value = '';
+            
+            // Reset card selection
+            selectedCard = null;
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+    </script>
+</body>
+</html>
