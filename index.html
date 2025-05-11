@@ -269,19 +269,19 @@
             <h2>Step 1: Choose a card design</h2>
             <div class="card-selection">
                 <div class="card" data-card="1" onclick="selectCard(1)">
-                    <img src="Card1.jpg" alt="Vesak card design 1">
+                    <img src="Card1.png" alt="Vesak card design 1">
                     <div class="card-label">Lotus Design</div>
                 </div>
                 <div class="card" data-card="2" onclick="selectCard(2)">
-                    <img src="Card2.jpg" alt="Vesak card design 2">
+                    <img src="Card2.png" alt="Vesak card design 2">
                     <div class="card-label">Buddha Design</div>
                 </div>
                 <div class="card" data-card="3" onclick="selectCard(3)">
-                    <img src="Card3.jpg" alt="Vesak card design 3">
+                    <img src="Card3.png" alt="Vesak card design 3">
                     <div class="card-label">Lantern Design</div>
                 </div>
                 <div class="card" data-card="4" onclick="selectCard(4)">
-                    <img src="Card4.jpg" alt="Vesak card design 4">
+                    <img src="Card4.png" alt="Vesak card design 4">
                     <div class="card-label">Temple Design</div>
                 </div>
             </div>
@@ -413,7 +413,7 @@
             document.getElementById('cardPreview').classList.remove('hidden');
             
             // Update preview with the actual card image
-            document.getElementById('previewImage').src = `Card${selectedCard}.jpg`;
+            document.getElementById('previewImage').src = `Card${selectedCard}.png`;
             document.getElementById('personalMessageDisplay').textContent = personalMessage;
             document.getElementById('senderNameDisplay').textContent = senderName;
             document.getElementById('recipientNameDisplay').textContent = recipientName;
@@ -421,8 +421,8 @@
             // Generate share URL
             const shareParams = new URLSearchParams();
             shareParams.append('card', selectedCard);
-            shareParams.append('from', senderName);
-            shareParams.append('to', recipientName);
+            shareParams.append('from', encodeURIComponent(senderName));
+            shareParams.append('to', encodeURIComponent(recipientName));
             if (personalMessage) {
                 shareParams.append('msg', encodeURIComponent(personalMessage));
             }
@@ -438,8 +438,8 @@
         
         function showReceivedCard(params) {
             const cardNumber = params.get('card');
-            const fromName = params.get('from');
-            const toName = params.get('to');
+            const fromName = params.get('from') ? decodeURIComponent(params.get('from')) : '';
+            const toName = params.get('to') ? decodeURIComponent(params.get('to')) : '';
             const message = params.get('msg') ? decodeURIComponent(params.get('msg')) : '';
             
             // Hide card creator and show received card
@@ -448,7 +448,7 @@
             document.getElementById('receivedCard').classList.remove('hidden');
             
             // Update received card with the actual card image
-            document.getElementById('receivedImage').src = `Card${cardNumber}.jpg`;
+            document.getElementById('receivedImage').src = `Card${cardNumber}.png`;
             document.getElementById('receivedMessage').textContent = message;
             document.getElementById('receivedFrom').textContent = fromName;
             
