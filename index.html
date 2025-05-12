@@ -222,9 +222,45 @@
             font-size: 14px;
         }
         
+        .url-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        
+        .url-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .url-option.active {
+            background-color: #fff3e0;
+            border-color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .url-option:hover {
+            background-color: #fff3e0;
+        }
+        
         .success-message {
             background-color: #dff2bf;
             color: #4f8a10;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .error-message {
+            background-color: #ffbaba;
+            color: #d8000c;
             padding: 10px;
             border-radius: 4px;
             margin-bottom: 20px;
@@ -239,6 +275,13 @@
             color: #a1887f;
         }
         
+        .shortening-indicator {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 14px;
+            color: #ff9800;
+        }
+        
         /* Responsive design */
         @media (max-width: 768px) {
             .card {
@@ -248,6 +291,10 @@
             
             .form-section {
                 padding: 20px;
+            }
+            
+            .url-options {
+                flex-direction: column;
             }
         }
         
@@ -332,10 +379,27 @@
             
             <div class="share-section">
                 <h3>Share this card with <span id="recipientNameDisplay"></span></h3>
-                <p>Copy this link and send it to them:</p>
-                <input type="text" id="shareUrl" class="share-url" readonly>
-                <button onclick="copyShareLink()">Copy Link</button>
+                
+                <div class="url-options">
+                    <div class="url-option active" onclick="switchUrlType('full')">Full URL</div>
+                    <div class="url-option" onclick="switchUrlType('short')">Short URL</div>
+                </div>
+                
+                <div id="fullUrlSection">
+                    <input type="text" id="shareUrl" class="share-url" readonly>
+                    <button onclick="copyShareLink('full')">Copy Link</button>
+                </div>
+                
+                <div id="shortUrlSection" class="hidden">
+                    <input type="text" id="shortUrl" class="share-url" readonly placeholder="Click 'Generate Short URL' below">
+                    <button id="generateShortUrl" onclick="generateShortUrl()">Generate Short URL</button>
+                    <button id="copyShortUrl" onclick="copyShareLink('short')" class="hidden">Copy Short Link</button>
+                    <span id="shorteningIndicator" class="shortening-indicator hidden">Generating...</span>
+                </div>
+                
                 <div id="copySuccess" class="success-message hidden">Link copied successfully!</div>
+                <div id="shortenError" class="error-message hidden">Could not generate short URL. Please try again or use the full URL.</div>
+                
                 <p>When they open this link, they'll see your special Vesak greeting.</p>
                 <button onclick="resetForm()">Create Another Card</button>
             </div>
@@ -369,10 +433,19 @@
 
     <script>
         let selectedCard = null;
+        let currentUrlType = 'full';
         
         // Check if URL has parameters (someone received a card)
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
+            
+            // First check if this is a shortened URL redirect
+            if (urlParams.has('code')) {
+                expandShortUrl(urlParams.get('code'));
+                return;
+            }
+            
+            // Regular card URL
             if (urlParams.has('card') && urlParams.has('from') && urlParams.has('to')) {
                 showReceivedCard(urlParams);
             } else {
@@ -381,8 +454,11 @@
             
             // Add click listener for card flipping
             document.querySelectorAll('.card-preview').forEach(card => {
-                card.addEventListener('click', function() {
-                    this.classList.toggle('flipped');
+                card.addEventListener('click', function(e) {
+                    // Don't flip if clicking on buttons or inputs
+                    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+                        this.classList.toggle('flipped');
+                    }
                 });
             });
         };
@@ -436,18 +512,42 @@
             const shareUrl = `${window.location.origin}${window.location.pathname}?${shareParams.toString()}`;
             document.getElementById('shareUrl').value = shareUrl;
             
-            // Remove any existing click event listeners
-            const cardPreview = document.getElementById('cardPreview');
-            const newCardPreview = cardPreview.cloneNode(true);
-            cardPreview.parentNode.replaceChild(newCardPreview, cardPreview);
+            // Reset any previous short URL
+            document.getElementById('shortUrl').value = '';
+            document.getElementById('copyShortUrl').classList.add('hidden');
+            document.getElementById('generateShortUrl').classList.remove('hidden');
+            document.getElementById('shortenError').classList.add('hidden');
+            
+            // Set URL type to full by default
+            switchUrlType('full');
             
             // Add flip functionality to the created card
-            document.getElementById('cardPreview').addEventListener('click', function(e) {
+            const cardPreview = document.querySelector('#cardPreview .card-inner');
+            cardPreview.addEventListener('click', function(e) {
                 // Don't flip if clicking on buttons or inputs
                 if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
-                    this.classList.toggle('flipped');
+                    document.querySelector('#cardPreview').classList.toggle('flipped');
                 }
             });
+        }
+        
+        function switchUrlType(type) {
+            currentUrlType = type;
+            
+            // Update active class
+            document.querySelectorAll('.url-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`.url-option:nth-child(${type === 'full' ? '1' : '2'})`).classList.add('active');
+            
+            // Show/hide relevant sections
+            if (type === 'full') {
+                document.getElementById('fullUrlSection').classList.remove('hidden');
+                document.getElementById('shortUrlSection').classList.add('hidden');
+            } else {
+                document.getElementById('fullUrlSection').classList.add('hidden');
+                document.getElementById('shortUrlSection').classList.remove('hidden');
+            }
         }
         
         function showReceivedCard(params) {
@@ -470,11 +570,34 @@
             document.title = `Vesak Greeting from ${fromName}`;
         }
         
-        function copyShareLink() {
-            const shareUrlInput = document.getElementById('shareUrl');
-            shareUrlInput.select();
-            document.execCommand('copy');
+        function copyShareLink(type = 'full') {
+            const urlInputId = type === 'full' ? 'shareUrl' : 'shortUrl';
+            const shareUrlInput = document.getElementById(urlInputId);
             
+            if (!shareUrlInput.value) {
+                alert('Please generate a short URL first.');
+                return;
+            }
+            
+            shareUrlInput.select();
+            try {
+                // Use the newer clipboard API if available
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(shareUrlInput.value)
+                        .then(() => showCopySuccess())
+                        .catch(err => console.error('Could not copy text: ', err));
+                } else {
+                    // Fallback to execCommand
+                    document.execCommand('copy');
+                    showCopySuccess();
+                }
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy link. Please try selecting and copying manually.');
+            }
+        }
+        
+        function showCopySuccess() {
             // Show success message
             const successMsg = document.getElementById('copySuccess');
             successMsg.classList.remove('hidden');
@@ -483,6 +606,57 @@
             setTimeout(() => {
                 successMsg.classList.add('hidden');
             }, 3000);
+        }
+        
+        function generateShortUrl() {
+            const longUrl = document.getElementById('shareUrl').value;
+            const shorteningIndicator = document.getElementById('shorteningIndicator');
+            
+            // Show loading indicator
+            shorteningIndicator.classList.remove('hidden');
+            document.getElementById('generateShortUrl').disabled = true;
+            document.getElementById('shortenError').classList.add('hidden');
+            
+            // Use the TinyURL API to create a short URL
+            fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to generate short URL');
+                    }
+                    return response.text();
+                })
+                .then(shortUrl => {
+                    document.getElementById('shortUrl').value = shortUrl;
+                    document.getElementById('generateShortUrl').classList.add('hidden');
+                    document.getElementById('copyShortUrl').classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error('Error generating short URL:', error);
+                    document.getElementById('shortenError').classList.remove('hidden');
+                })
+                .finally(() => {
+                    shorteningIndicator.classList.add('hidden');
+                    document.getElementById('generateShortUrl').disabled = false;
+                });
+        }
+        
+        // Function to expand a short URL code
+        function expandShortUrl(code) {
+            // In a real implementation, this would query your database
+            // For this example, we'll show an error message
+            document.getElementById('cardCreator').classList.add('hidden');
+            document.getElementById('cardPreview').classList.add('hidden');
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.style.margin = '50px auto';
+            errorDiv.style.maxWidth = '600px';
+            errorDiv.innerHTML = `
+                <h2>URL Error</h2>
+                <p>The short URL code "${code}" is not valid or has expired.</p>
+                <p>Please request a new link from the sender or <a href="${window.location.pathname}">create your own card</a>.</p>
+            `;
+            document.querySelector('.container').appendChild(errorDiv);
         }
         
         function resetForm() {
@@ -502,7 +676,7 @@
             });
         }
         
-        // Add mobile share functionality from second code
+        // Add mobile share functionality
         function shareCard() {
             if (!selectedCard) {
                 alert('Please create a card first.');
@@ -515,15 +689,24 @@
             
             const fullMessage = `Here's a Vesak Greeting for you!\n\nසුබ වෙසක් මංගල්යක් වේවා!\n\n${personalMessage}\n\nWith love,\n${senderName}`;
             
+            const shareUrl = currentUrlType === 'full' ? 
+                document.getElementById('shareUrl').value : 
+                document.getElementById('shortUrl').value;
+                
+            if (!shareUrl) {
+                alert('Please generate a URL first.');
+                return;
+            }
+            
             if (navigator.share) {
                 navigator.share({
                     title: 'Vesak Greeting',
                     text: fullMessage,
-                    url: document.getElementById('shareUrl').value,
+                    url: shareUrl,
                 }).catch((err) => console.error('Error sharing:', err));
             } else {
                 // Fallback to copy link method
-                copyShareLink();
+                copyShareLink(currentUrlType);
             }
         }
     </script>
