@@ -608,37 +608,37 @@
                     <div class="carousel-slide active">
                         <div class="card" data-card="1" onclick="selectCard(1)">
                             <img src="Card1.png" alt="Vesak card design 1">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Lotus Design</div>
                         </div>
                         <div class="card" data-card="2" onclick="selectCard(2)">
                             <img src="Card2.png" alt="Vesak card design 2">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Buddha Design</div>
                         </div>
                         <div class="card" data-card="3" onclick="selectCard(3)">
                             <img src="Card3.png" alt="Vesak card design 3">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Lantern Design</div>
                         </div>
                         <div class="card" data-card="4" onclick="selectCard(4)">
                             <img src="Card4.png" alt="Vesak card design 4">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Temple Design</div>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <div class="card" data-card="5" onclick="selectCard(5)">
                             <img src="Card5.png" alt="Vesak card design 5">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Dharma Wheel</div>
                         </div>
                         <div class="card" data-card="6" onclick="selectCard(6)">
                             <img src="Card6.png" alt="Vesak card design 6">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Bodhi Tree</div>
                         </div>
                         <div class="card" data-card="7" onclick="selectCard(7)">
                             <img src="Card7.png" alt="Vesak card design 7">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Peace Doves</div>
                         </div>
                         <div class="card" data-card="8" onclick="selectCard(8)">
                             <img src="Card8.png" alt="Vesak card design 8">
-                            <div class="card-label">  </div>
+                            <div class="card-label">Golden Stupa</div>
                         </div>
                     </div>
                 </div>
@@ -757,7 +757,7 @@
         </div>
         
         <footer class="vesak-footer">
-            &copy; 2026 Vesak Greetings | Celebrate the spirit of Vesak with peace, love, and happiness | Dhanuka Dineth
+            &copy; 2026 Vesak Greetings | Celebrate the spirit of Vesak with peace, love, and happiness.
         </footer>
     </div>
 
@@ -992,7 +992,7 @@
             if (typeof gtag !== 'undefined') gtag('event', 'generate_short_url');
             
             // Use the TinyURL API to create a short URL
-            fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`)
+            fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(longUrl)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to generate short URL');
