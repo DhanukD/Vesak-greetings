@@ -695,7 +695,7 @@
                     <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
                     <p class="card-message">May the peace and blessings of Vesak be with you.</p>
                     <p id="personalMessageDisplay"></p>
-                    <p class="signature">With love,<br><span id="senderNameDisplay"></span></p>
+                    <p class="signature">Dear <span id="recipientNameDisplay2"></span>,<br><br>With love,<br><span id="senderNameDisplay"></span></p>
                 </div>
             </div>
             <p class="flip-instructions">Click the card to flip it</p>
@@ -742,7 +742,7 @@
                         <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
                         <p class="card-message">May the peace and blessings of Vesak be with you.</p>
                         <p id="receivedMessage"></p>
-                        <p class="signature">With love,<br><span id="receivedFrom"></span></p>
+                        <p class="signature">Dear <span id="receivedTo"></span>,<br><br>With love,<br><span id="receivedFrom"></span></p>
                     </div>
                 </div>
                 <p class="flip-instructions">Click the card to flip it</p>
@@ -870,6 +870,7 @@
             document.getElementById('personalMessageDisplay').textContent = personalMessage;
             document.getElementById('senderNameDisplay').textContent = senderName;
             document.getElementById('recipientNameDisplay').textContent = recipientName;
+            document.getElementById('recipientNameDisplay2').textContent = recipientName;
             
             // Reset custom share message to default
             customShareMessage = defaultShareMessage;
@@ -927,6 +928,7 @@
             document.getElementById('receivedImage').src = `Card${cardNumber}.png`;
             document.getElementById('receivedMessage').textContent = message;
             document.getElementById('receivedFrom').textContent = fromName;
+            document.getElementById('receivedTo').textContent = toName;
             
             // Update page title
             document.title = `Vesak Greeting from ${fromName}`;
