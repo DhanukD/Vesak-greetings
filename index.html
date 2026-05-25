@@ -692,10 +692,11 @@
                     <img id="previewImage" class="card-preview-img" src="" alt="Card front">
                 </div>
                 <div class="card-back">
+                    <p class="signature">Dear <span id="recipientNameDisplay2"></span>,</p>
                     <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
                     <p class="card-message">May the peace and blessings of Vesak be with you.</p>
                     <p id="personalMessageDisplay"></p>
-                    <p class="signature">Dear <span id="recipientNameDisplay2"></span>,<br><br>With love,<br><span id="senderNameDisplay"></span></p>
+                    <p class="signature" style="margin-top: auto;">With love,<br><span id="senderNameDisplay"></span></p>
                 </div>
             </div>
             <p class="flip-instructions">Click the card to flip it</p>
@@ -715,7 +716,6 @@
                 
                 <div id="copySuccess" class="success-message hidden">Link copied successfully!</div>
                 
-                <p>When they open this link, they'll see your special Vesak greeting.</p>
                 <div class="share-buttons">
                     <button onclick="shareCard()" class="share-btn">Share Card</button>
                     <button onclick="resetForm()" class="create-new-btn">Create Another Card</button>
@@ -734,10 +734,11 @@
                         <img id="receivedImage" class="card-preview-img" src="" alt="Card front">
                     </div>
                     <div class="card-back">
+                        <p class="signature">Dear <span id="receivedTo"></span>,</p>
                         <h2>සුබ වෙසක් මංගල්යක් වේවා!</h2>
                         <p class="card-message">May the peace and blessings of Vesak be with you.</p>
                         <p id="receivedMessage"></p>
-                        <p class="signature">Dear <span id="receivedTo"></span>,<br><br>With love,<br><span id="receivedFrom"></span></p>
+                        <p class="signature" style="margin-top: auto;">With love,<br><span id="receivedFrom"></span></p>
                     </div>
                 </div>
                 <p class="flip-instructions">Click the card to flip it</p>
@@ -752,7 +753,7 @@
         </div>
         
         <footer class="vesak-footer">
-            &copy; 2026 Vesak Greetings | Celebrate the spirit of Vesak with peace, love, and happiness.
+            &copy; 2026 Vesak Greetings
         </footer>
     </div>
 
@@ -874,10 +875,10 @@
             // Generate share URL
             const shareParams = new URLSearchParams();
             shareParams.append('card', selectedCard);
-            shareParams.append('from', encodeURIComponent(senderName));
-            shareParams.append('to', encodeURIComponent(recipientName));
+            shareParams.append('from', senderName);
+            shareParams.append('to', recipientName);
             if (personalMessage) {
-                shareParams.append('msg', encodeURIComponent(personalMessage));
+                shareParams.append('msg', personalMessage);
             }
             
             const shareUrl = `${window.location.origin}${window.location.pathname}?${shareParams.toString()}`;
