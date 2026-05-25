@@ -709,16 +709,11 @@
                 </div>
                 
                 <div id="shortUrlSection">
-                    <input type="text" id="shortUrl" class="share-url" readonly placeholder="Generating short link…">
-                    <span id="shorteningIndicator" class="shortening-indicator hidden">Generating…</span>
-                    <button id="copyShortUrl" onclick="copyShareLink('short')" class="hidden">Copy Link</button>
-                    <button id="retryShortUrl" onclick="generateShortUrl()" class="hidden" style="margin-top:8px;">Retry Short URL</button>
+                    <input type="text" id="shareUrl" class="share-url" readonly>
+                    <button id="copyShareBtn" onclick="copyShareLink()">Copy Link</button>
                 </div>
-                <!-- Hidden full URL used internally for short URL generation -->
-                <input type="hidden" id="shareUrl">
                 
                 <div id="copySuccess" class="success-message hidden">Link copied successfully!</div>
-                <div id="shortenError" class="error-message hidden">Could not generate short URL. <button onclick="copyShareLink('full')" style="font-size:14px;padding:4px 10px;">Copy Full URL Instead</button></div>
                 
                 <p>When they open this link, they'll see your special Vesak greeting.</p>
                 <div class="share-buttons">
@@ -888,16 +883,6 @@
             const shareUrl = `${window.location.origin}${window.location.pathname}?${shareParams.toString()}`;
             document.getElementById('shareUrl').value = shareUrl;
             
-            // Reset short URL state and auto-generate
-            document.getElementById('shortUrl').value = '';
-            document.getElementById('shortUrl').placeholder = 'Generating short link…';
-            document.getElementById('copyShortUrl').classList.add('hidden');
-            document.getElementById('retryShortUrl').classList.add('hidden');
-            document.getElementById('shortenError').classList.add('hidden');
-            
-            // Auto-generate short URL immediately
-            generateShortUrl();
-            
             // Add flip functionality to the created card
             const cardPreview = document.querySelector('#cardPreview .card-inner');
             cardPreview.addEventListener('click', function(e) {
@@ -934,18 +919,15 @@
             document.title = `Vesak Greeting from ${fromName}`;
         }
         
-        function copyShareLink(type = 'short') {
-            const urlInputId = type === 'short' ? 'shortUrl' : 'shareUrl';
-            const urlInput = document.getElementById(urlInputId);
-            const urlValue = urlInput.value;
+        function copyShareLink() {
+            const urlValue = document.getElementById('shareUrl').value;
             
             if (!urlValue) {
-                alert('No link available to copy yet. Please wait a moment.');
+                alert('No link available to copy.');
                 return;
             }
             
-            // GA event
-            if (typeof gtag !== 'undefined') gtag('event', 'copy_link', { link_type: type });
+            if (typeof gtag !== 'undefined') gtag('event', 'copy_link');
             
             try {
                 if (navigator.clipboard) {
@@ -953,7 +935,6 @@
                         .then(() => showCopySuccess())
                         .catch(err => console.error('Could not copy text: ', err));
                 } else {
-                    // Fallback
                     const tempInput = document.createElement('input');
                     document.body.appendChild(tempInput);
                     tempInput.value = urlValue;
@@ -963,61 +944,15 @@
                     showCopySuccess();
                 }
             } catch (err) {
-                console.error('Failed to copy: ', err);
                 alert('Failed to copy link. Please select and copy manually:\n' + urlValue);
             }
         }
         
         function showCopySuccess() {
-            // Show success message
             const successMsg = document.getElementById('copySuccess');
             successMsg.classList.remove('hidden');
-            
-            // Hide success message after 3 seconds
-            setTimeout(() => {
-                successMsg.classList.add('hidden');
-            }, 3000);
+            setTimeout(() => successMsg.classList.add('hidden'), 3000);
         }
-        
-        function generateShortUrl() {
-            const longUrl = document.getElementById('shareUrl').value;
-            const shorteningIndicator = document.getElementById('shorteningIndicator');
-            
-            // Show loading indicator
-            shorteningIndicator.classList.remove('hidden');
-            document.getElementById('retryShortUrl').classList.add('hidden');
-            document.getElementById('shortenError').classList.add('hidden');
-            document.getElementById('copyShortUrl').classList.add('hidden');
-            document.getElementById('shortUrl').placeholder = 'Generating short link…';
-            
-            // GA event: short URL generation attempted
-            if (typeof gtag !== 'undefined') gtag('event', 'generate_short_url');
-            
-            // Use the TinyURL API to create a short URL
-            fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(longUrl)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to generate short URL');
-                    }
-                    return response.text();
-                })
-                .then(shortUrl => {
-                    document.getElementById('shortUrl').value = shortUrl;
-                    document.getElementById('shortUrl').placeholder = '';
-                    document.getElementById('copyShortUrl').classList.remove('hidden');
-                })
-                .catch(error => {
-                    console.error('Error generating short URL:', error);
-                    document.getElementById('shortUrl').placeholder = 'Short URL unavailable';
-                    document.getElementById('shortenError').classList.remove('hidden');
-                    document.getElementById('retryShortUrl').classList.remove('hidden');
-                })
-                .finally(() => {
-                    shorteningIndicator.classList.add('hidden');
-                });
-        }
-        
-        // Function to expand a short URL code
         function expandShortUrl(code) {
             // In a real implementation, this would query your database
             // For this example, we'll show an error message
@@ -1053,39 +988,26 @@
             });
         }
         
-        // Share functionality for card creator
         function shareCard() {
             if (!selectedCard) {
                 alert('Please create a card first.');
                 return;
             }
             
-            // Prefer short URL; fall back to full URL
-            const shortUrlVal = document.getElementById('shortUrl').value;
-            const fullUrlVal = document.getElementById('shareUrl').value;
-            const shareUrl = shortUrlVal || fullUrlVal;
+            const shareUrl = document.getElementById('shareUrl').value;
+            if (!shareUrl) return;
             
-            if (!shareUrl) {
-                alert('Please wait for the link to be generated.');
-                return;
-            }
-            
-            // GA event: card shared
             if (typeof gtag !== 'undefined') gtag('event', 'share_card', { card_id: selectedCard });
-            
-            const shareMessage = customShareMessage;
             
             if (navigator.share) {
                 navigator.share({
                     title: 'Vesak Greeting Card',
-                    text: shareMessage,
+                    text: customShareMessage,
                     url: shareUrl,
                 }).catch((err) => console.error('Error sharing:', err));
             } else {
-                // Fallback to copy link method
-                const type = shortUrlVal ? 'short' : 'full';
-                copyShareLink(type);
-                alert('Link copied! You can now paste it into your preferred messaging app along with the greeting message.');
+                copyShareLink();
+                alert('Link copied! Paste it into your preferred messaging app.');
             }
         }
         
