@@ -384,7 +384,12 @@
 
         textarea { height: 88px; resize: none; }
 
-        /* ── CARD PREVIEW ── */
+        /* ── CARD PREVIEW PAGE ── */
+        .preview-page {
+            width: 100%;
+        }
+
+        /* ── CARD PREVIEW FLIP ── */
         .card-preview {
             width: 275px;
             height: 375px;
@@ -753,8 +758,8 @@
     <div class="container">
         <header>
             <div class="header-inner">
-                <span class="header-top-ornament">☸ &nbsp; Vesak Samaramu &nbsp; ☸</span>
-                <h1>Vesak greetingS</h1>
+                <span class="header-top-ornament">☸ &nbsp; Vesak Poya &nbsp; ☸</span>
+                <h1>Vesak Greetings</h1>
                 <p class="subtitle">Share the light of Vesak with those you love</p>
                 <div class="header-ornament">🪔 &nbsp; 🌸 &nbsp; 🙏</div>
                 <div class="header-rule"></div>
@@ -846,8 +851,9 @@
             </div>
         </div>
         
-        <div id="cardPreview" class="card-preview hidden">
+        <div id="cardPreview" class="preview-page hidden">
             <h2>Your Vesak Greeting Card</h2>
+            <div class="card-preview">
             <div class="card-inner">
                 <div class="card-front">
                     <img id="previewImage" class="card-preview-img" src="" alt="Card front">
@@ -861,6 +867,7 @@
                 </div>
             </div>
             <p class="flip-instructions">Click the card to flip it</p>
+            </div>
             
             <div class="share-section">
                 <h3>Share this card with <span id="recipientNameDisplay"></span></h3>
@@ -1056,12 +1063,12 @@
             document.getElementById('shareUrl').value = shareUrl;
             
             // Add flip functionality to the created card
-            const cardPreview = document.querySelector('#cardPreview .card-inner');
+            const cardPreview = document.querySelector('#cardPreview .card-preview .card-inner');
             cardPreview.addEventListener('click', function(e) {
                 // Don't flip if clicking on buttons or inputs
                 if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && 
                     e.target.tagName !== 'TEXTAREA' && !e.target.classList.contains('edit-message-btn')) {
-                    document.querySelector('#cardPreview').classList.toggle('flipped');
+                    document.querySelector('#cardPreview .card-preview').classList.toggle('flipped');
                 }
             });
         }
