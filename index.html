@@ -13,293 +13,273 @@
         gtag('config', 'G-WLESM7BG41');
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Lato:ital,wght@0,300;0,400;1,300&display=swap');
 
         :root {
-            --ivory:      #f7f3ee;
-            --ivory-2:    #ede8e0;
-            --ivory-3:    #ddd6cb;
-            --charcoal:   #2a2520;
-            --charcoal-2: #4a4540;
-            --charcoal-3: #7a736a;
-            --gold:       #b89a6a;
-            --gold-2:     #d4b88a;
-            --gold-light: #f0e8d8;
-            --white:      #ffffff;
-            --radius:     2px;
+            /* Sri Lankan Buddhist Palette */
+            --temple-red:    #8B1A1A;   /* deep temple red */
+            --temple-dark:   #5C0F0F;   /* dark sanctum */
+            --temple-deep:   #3A0808;   /* deepest shadow */
+            --kandyan-gold:  #C9922A;   /* kandyan ornament gold */
+            --gold-bright:   #E8B84B;   /* bright ceremonial gold */
+            --gold-pale:     #F5DFA8;   /* pale gold shimmer */
+            --gold-glow:     #FDF3DC;   /* gold glow background */
+            --lotus-pink:    #C9647A;   /* lotus blossom */
+            --lotus-pale:    #F5E6EA;   /* pale lotus */
+            --stone:         #F2EDE6;   /* temple stone */
+            --stone-2:       #E6DDD2;   /* worn stone */
+            --stone-3:       #C8BDB0;   /* aged stone */
+            --stone-dark:    #8C7B6E;   /* dark stone */
+            --ink:           #1A0F0A;   /* deep ink */
+            --ink-2:         #3D2518;   /* warm dark brown */
+            --ink-3:         #7A5C46;   /* medium brown */
+            --white:         #FFFDF9;   /* warm white */
+            --radius:        2px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Jost', sans-serif;
+            font-family: 'Lato', sans-serif;
             font-weight: 300;
-            background-color: var(--ivory);
-            color: var(--charcoal);
-            letter-spacing: 0.01em;
+            background-color: var(--stone);
+            color: var(--ink);
+            background-image:
+                radial-gradient(ellipse at top, rgba(201,146,42,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom, rgba(139,26,26,0.04) 0%, transparent 60%);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1080px;
             margin: 0 auto;
-            padding: 40px 24px;
+            padding: 32px 24px;
         }
 
+        /* ── HEADER ── */
         header {
             text-align: center;
-            padding: 60px 40px;
-            background-color: var(--charcoal);
-            color: var(--ivory);
+            padding: 72px 48px 60px;
+            background: linear-gradient(160deg, var(--temple-deep) 0%, var(--temple-dark) 45%, var(--temple-red) 100%);
             border-radius: var(--radius);
-            margin-bottom: 60px;
+            margin-bottom: 64px;
             position: relative;
             overflow: hidden;
         }
 
+        /* Top gold border */
         header::before {
             content: '';
             position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg,
+                var(--temple-dark),
+                var(--gold-bright),
+                var(--kandyan-gold),
+                var(--gold-bright),
+                var(--temple-dark));
+        }
+
+        /* Subtle pattern overlay */
+        header::after {
+            content: '';
+            position: absolute;
             inset: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 40px,
-                rgba(184,154,106,0.05) 40px,
-                rgba(184,154,106,0.05) 41px
-            );
+            background-image:
+                radial-gradient(circle at 10% 80%, rgba(201,146,42,0.10) 0%, transparent 40%),
+                radial-gradient(circle at 90% 20%, rgba(201,146,42,0.10) 0%, transparent 40%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(201,146,42,0.03) 60px,
+                    rgba(201,146,42,0.03) 61px
+                );
+        }
+
+        .header-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative top line */
+        .header-top-ornament {
+            font-size: 0.65rem;
+            letter-spacing: 0.5rem;
+            text-transform: uppercase;
+            color: var(--kandyan-gold);
+            opacity: 0.8;
+            margin-bottom: 20px;
+            display: block;
         }
 
         h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            font-size: 3rem;
-            letter-spacing: 0.08em;
-            color: var(--ivory);
-            position: relative;
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            font-size: 2.8rem;
+            letter-spacing: 0.12em;
+            color: var(--gold-pale);
+            line-height: 1.2;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
         }
 
         .subtitle {
-            font-family: 'Jost', sans-serif;
+            font-family: 'Lato', sans-serif;
             font-weight: 300;
-            font-size: 0.78rem;
-            letter-spacing: 0.22em;
+            font-size: 0.75rem;
+            letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: var(--gold-2);
-            margin-top: 12px;
-            position: relative;
+            color: var(--stone-3);
+            margin-top: 14px;
         }
 
         .header-ornament {
             font-size: 1.1rem;
-            margin-top: 20px;
-            opacity: 0.5;
-            letter-spacing: 1rem;
+            margin-top: 24px;
+            letter-spacing: 0.8rem;
+            opacity: 0.7;
+            display: block;
+        }
+
+        /* Bottom gold rule */
+        .header-rule {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--kandyan-gold), transparent);
+            margin: 20px auto 0;
+        }
+
+        /* ── SECTION HEADINGS ── */
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: 1.25rem;
+            letter-spacing: 0.1em;
+            color: var(--temple-red);
+            margin-bottom: 36px;
+            text-align: center;
             position: relative;
         }
 
-        h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            font-size: 1.5rem;
-            letter-spacing: 0.1em;
-            color: var(--charcoal);
-            margin-bottom: 32px;
-            text-align: center;
+        h2::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--kandyan-gold), var(--gold-bright));
+            margin: 12px auto 0;
+            border-radius: 1px;
         }
 
         h3 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cinzel', serif;
             font-weight: 400;
-            font-size: 1.3rem;
+            font-size: 1.05rem;
             letter-spacing: 0.06em;
-            color: var(--charcoal);
-            margin-bottom: 16px;
+            color: var(--ink-2);
+            margin-bottom: 14px;
         }
 
-        /* Carousel */
-        .carousel-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .card-selection {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-            min-height: 330px;
-        }
-
-        .carousel-slide {
+        /* ── CARD GRID ── */
+        .card-grid-page {
             display: none;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            animation: fadeIn 0.5s ease;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 24px;
+            animation: fadeUp 0.45s ease;
         }
 
-        .carousel-slide.active { display: flex; }
+        .card-grid-page.active { display: grid; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .carousel-btn {
-            background-color: transparent;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 22px;
-            cursor: pointer;
-            flex-shrink: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            letter-spacing: 0;
-        }
-
-        .carousel-btn:hover {
-            background-color: var(--gold);
-            color: var(--white);
-        }
-
-        .carousel-btn:disabled {
-            border-color: var(--ivory-3);
-            color: var(--ivory-3);
-            cursor: default;
-        }
-
-        .carousel-btn:disabled:hover {
-            background-color: transparent;
-            color: var(--ivory-3);
-        }
-
-        .carousel-dots {
+        .grid-pagination {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
 
-        .dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--ivory-3);
-            margin: 0 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .dot.active {
-            background-color: var(--gold);
-            width: 20px;
-            border-radius: 3px;
-        }
-
-        /* Cards */
+        /* ── CARDS ── */
         .card {
-            width: 220px;
-            height: 295px;
+            width: 100%;
+            aspect-ratio: 3/4;
             border-radius: var(--radius);
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.4s, box-shadow 0.4s;
+            transition: transform 0.35s, box-shadow 0.35s;
             position: relative;
-            border: 1px solid var(--ivory-3);
+            border: 2px solid var(--stone-2);
         }
 
         .card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(42,37,32,0.12);
+            box-shadow: 0 16px 36px rgba(92,15,15,0.18);
+            border-color: var(--stone-3);
         }
 
         .card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .card.selected {
-            border: 1.5px solid var(--gold);
-            box-shadow: 0 0 0 3px var(--gold-light);
+            border: 4px solid var(--kandyan-gold);
+            box-shadow:
+                0 0 0 3px var(--gold-glow),
+                0 0 0 5px var(--kandyan-gold),
+                0 12px 32px rgba(201,146,42,0.3);
         }
 
-        .card-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(42,37,32,0.72);
-            color: var(--ivory);
-            padding: 10px 8px;
-            text-align: center;
-            font-size: 0.68rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            font-weight: 400;
+        /* ── DOTS ── */
+        .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--stone-3);
+            margin: 0 4px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        /* Form */
-        .form-section {
-            max-width: 540px;
-            margin: 0 auto;
-            background-color: var(--white);
-            padding: 48px 40px;
-            border-radius: var(--radius);
-            border: 1px solid var(--ivory-3);
+        .dot.active {
+            background-color: var(--kandyan-gold);
+            width: 22px;
+            border-radius: 3px;
         }
 
-        .form-group { margin-bottom: 28px; }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.68rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: var(--charcoal-3);
-            font-weight: 400;
+        /* ── NEXT STEP BAR ── */
+        .next-step-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 0;
+            border-top: 1px solid var(--stone-2);
+            margin-top: 8px;
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 12px 0;
-            border: none;
-            border-bottom: 1px solid var(--ivory-3);
-            border-radius: 0;
-            font-size: 1rem;
-            font-family: 'Jost', sans-serif;
-            font-weight: 300;
-            color: var(--charcoal);
-            background: transparent;
-            outline: none;
-            transition: border-color 0.3s;
+        .selected-hint {
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            color: var(--stone-dark);
+            font-style: italic;
         }
 
-        input:focus, textarea:focus {
-            border-bottom-color: var(--gold);
-        }
-
-        textarea {
-            height: 90px;
-            resize: none;
-        }
-
+        /* ── BUTTONS ── */
         button {
-            background-color: var(--charcoal);
-            color: var(--ivory);
-            border: 1px solid var(--charcoal);
-            padding: 14px 36px;
-            font-size: 0.72rem;
-            letter-spacing: 0.18em;
+            background: linear-gradient(135deg, var(--temple-red), var(--temple-dark));
+            color: var(--gold-pale);
+            border: 1px solid var(--temple-dark);
+            padding: 13px 36px;
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            font-family: 'Jost', sans-serif;
+            font-family: 'Lato', sans-serif;
             font-weight: 400;
             border-radius: var(--radius);
             cursor: pointer;
@@ -307,25 +287,116 @@
         }
 
         button:hover {
-            background-color: var(--gold);
-            border-color: var(--gold);
+            background: linear-gradient(135deg, var(--kandyan-gold), var(--gold-bright));
+            border-color: var(--kandyan-gold);
+            color: var(--ink);
+            box-shadow: 0 4px 16px rgba(201,146,42,0.35);
+        }
+
+        #continueBtn:disabled {
+            background: var(--stone-2);
+            border-color: var(--stone-2);
+            color: var(--stone-3);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        #continueBtn:disabled:hover {
+            background: var(--stone-2);
+            color: var(--stone-3);
+            box-shadow: none;
+        }
+
+        /* ── BACK BAR ── */
+        .back-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--stone-3);
+            color: var(--ink-3);
+            padding: 10px 20px;
+            font-size: 0.68rem;
+        }
+
+        .back-btn:hover {
+            background: var(--stone-2);
+            border-color: var(--stone-3);
+            color: var(--ink);
+            box-shadow: none;
+        }
+
+        .back-hint {
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--stone-dark);
         }
 
         .hidden { display: none; }
 
-        /* Card Preview */
+        /* ── FORM ── */
+        .form-section {
+            max-width: 520px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 48px 44px;
+            border-radius: var(--radius);
+            border: 1px solid var(--stone-2);
+            border-top: 4px solid var(--kandyan-gold);
+            box-shadow: 0 4px 24px rgba(92,15,15,0.08);
+        }
+
+        .form-group { margin-bottom: 30px; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--stone-dark);
+            font-weight: 400;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 1px solid var(--stone-2);
+            border-radius: 0;
+            font-size: 0.96rem;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            color: var(--ink);
+            background: transparent;
+            outline: none;
+            transition: border-color 0.25s;
+        }
+
+        input:focus, textarea:focus {
+            border-bottom-color: var(--kandyan-gold);
+        }
+
+        textarea { height: 88px; resize: none; }
+
+        /* ── CARD PREVIEW ── */
         .card-preview {
-            width: 280px;
-            height: 380px;
-            margin: 40px auto;
+            width: 275px;
+            height: 375px;
+            margin: 44px auto;
             perspective: 1000px;
         }
 
         .card-inner {
             position: relative;
             width: 100%;
-            height: 380px;
-            transition: transform 0.8s;
+            height: 375px;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
@@ -338,145 +409,163 @@
             backface-visibility: hidden;
             border-radius: var(--radius);
             overflow: hidden;
-            border: 1px solid var(--ivory-3);
+            border: 1px solid var(--stone-2);
         }
 
         .card-front { background-color: var(--white); }
 
         .card-back {
-            background-color: var(--charcoal);
+            background: linear-gradient(160deg, var(--temple-deep) 0%, var(--temple-dark) 50%, var(--temple-red) 100%);
             transform: rotateY(180deg);
-            padding: 40px 30px;
+            padding: 36px 28px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
-            color: var(--ivory);
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-back::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+        }
+
+        .card-back::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--kandyan-gold), transparent);
         }
 
         .card-back h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-weight: 300;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 400;
             letter-spacing: 0.06em;
-            color: var(--gold-2);
-            margin-bottom: 16px;
+            color: var(--gold-bright);
+            margin-bottom: 0;
             text-align: center;
         }
 
+        .card-back h2::after { display: none; }
+
         .card-message {
-            font-size: 0.85rem;
-            letter-spacing: 0.04em;
-            color: var(--ivory-3);
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+            color: rgba(245,223,168,0.65);
             font-weight: 300;
-            line-height: 1.7;
-            margin-bottom: 16px;
+            line-height: 1.75;
         }
 
         .signature {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Lato', sans-serif;
             font-style: italic;
-            font-size: 1rem;
-            margin-top: 20px;
-            color: var(--gold-2);
+            font-size: 0.9rem;
+            color: var(--gold-pale);
+            line-height: 1.7;
         }
 
         .card-preview-img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
         }
 
         .flip-instructions {
             text-align: center;
-            margin-top: 12px;
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
+            margin-top: 10px;
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: var(--charcoal-3);
+            color: var(--stone-dark);
         }
 
-        /* Share section */
+        /* ── SHARE SECTION ── */
         .share-section {
             text-align: center;
             margin-top: 48px;
         }
 
         .share-url {
-            padding: 12px 0;
+            padding: 11px 0;
             border: none;
-            border-bottom: 1px solid var(--ivory-3);
+            border-bottom: 1px solid var(--stone-2);
             border-radius: 0;
             width: 100%;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            font-family: 'Jost', sans-serif;
-            color: var(--charcoal-2);
+            margin-bottom: 18px;
+            font-size: 0.8rem;
+            font-family: 'Lato', sans-serif;
+            color: var(--stone-dark);
             background: transparent;
         }
 
         .success-message {
-            background-color: var(--gold-light);
-            color: var(--charcoal-2);
-            padding: 12px 16px;
+            background-color: var(--gold-glow);
+            color: var(--ink-2);
+            padding: 13px 18px;
             border-radius: var(--radius);
-            margin-bottom: 16px;
-            font-size: 0.8rem;
+            margin-bottom: 14px;
+            font-size: 0.78rem;
             letter-spacing: 0.05em;
-            border-left: 2px solid var(--gold);
+            border-left: 3px solid var(--kandyan-gold);
         }
 
         .error-message {
             background-color: #fdf0ef;
             color: #7a3a3a;
-            padding: 12px 16px;
+            padding: 13px 18px;
             border-radius: var(--radius);
-            margin-bottom: 16px;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            border-left: 2px solid #c47a7a;
+            margin-bottom: 14px;
+            font-size: 0.78rem;
+            border-left: 3px solid var(--lotus-pink);
         }
 
+        /* ── MESSAGE PREVIEW ── */
         .message-preview {
-            background-color: var(--ivory);
-            border: 1px solid var(--ivory-3);
-            border-left: 2px solid var(--gold);
-            padding: 20px;
-            margin-bottom: 28px;
+            background-color: var(--gold-glow);
+            border: 1px solid var(--gold-pale);
+            border-left: 3px solid var(--kandyan-gold);
+            padding: 20px 22px;
+            margin-bottom: 26px;
             border-radius: var(--radius);
             position: relative;
         }
 
         .share-message-preview {
             margin: 0;
-            padding-right: 70px;
+            padding-right: 72px;
             font-style: italic;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.05rem;
-            color: var(--charcoal-2);
-            line-height: 1.6;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            color: var(--ink-2);
+            line-height: 1.65;
         }
 
         .edit-message-btn {
             position: absolute;
-            right: 12px;
-            top: 12px;
+            right: 12px; top: 12px;
             background-color: transparent;
-            border: 1px solid var(--ivory-3);
-            color: var(--charcoal-3);
-            font-size: 0.63rem;
-            letter-spacing: 0.12em;
+            border: 1px solid var(--stone-3);
+            color: var(--stone-dark);
+            font-size: 0.6rem;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            padding: 6px 10px;
-            font-family: 'Jost', sans-serif;
+            padding: 5px 10px;
+            font-family: 'Lato', sans-serif;
         }
 
         .edit-message-btn:hover {
-            background-color: var(--ivory-2);
-            color: var(--charcoal);
-            border-color: var(--charcoal);
+            background-color: var(--stone-2);
+            color: var(--ink);
+            border-color: var(--stone-3);
+            box-shadow: none;
         }
 
         .share-buttons {
@@ -488,167 +577,242 @@
 
         .share-btn {
             flex: 1;
-            max-width: 200px;
-            background-color: var(--gold);
-            border-color: var(--gold);
+            max-width: 190px;
+            background: linear-gradient(135deg, var(--kandyan-gold), var(--gold-bright));
+            border-color: var(--kandyan-gold);
+            color: var(--ink);
         }
 
         .share-btn:hover {
-            background-color: var(--charcoal);
-            border-color: var(--charcoal);
+            background: linear-gradient(135deg, var(--gold-bright), var(--kandyan-gold));
+            box-shadow: 0 4px 16px rgba(201,146,42,0.4);
         }
 
         .create-new-btn {
             flex: 1;
-            max-width: 200px;
-            background-color: transparent;
-            border: 1px solid var(--charcoal);
-            color: var(--charcoal);
+            max-width: 190px;
+            background: transparent;
+            border: 1px solid var(--temple-red);
+            color: var(--temple-red);
         }
 
         .create-new-btn:hover {
-            background-color: var(--charcoal);
-            color: var(--ivory);
+            background: linear-gradient(135deg, var(--temple-red), var(--temple-dark));
+            color: var(--gold-pale);
+            border-color: var(--temple-dark);
         }
 
+        /* ── MODAL ── */
         #messageEditModal {
             display: none;
             position: fixed;
             z-index: 1000;
             left: 0; top: 0;
             width: 100%; height: 100%;
-            background-color: rgba(42,37,32,0.55);
+            background-color: rgba(26,15,10,0.65);
         }
 
         .modal-content {
             background-color: var(--white);
             margin: 12% auto;
-            padding: 40px;
+            padding: 44px;
             border-radius: var(--radius);
             width: 85%;
-            max-width: 480px;
+            max-width: 460px;
+            border-top: 4px solid var(--kandyan-gold);
+            box-shadow: 0 20px 60px rgba(26,15,10,0.3);
         }
 
         .close-modal {
             float: right;
             font-size: 22px;
             cursor: pointer;
-            color: var(--charcoal-3);
+            color: var(--stone-dark);
             font-weight: 300;
             line-height: 1;
         }
 
-        .close-modal:hover { color: var(--gold); }
+        .close-modal:hover { color: var(--temple-red); }
 
         .shortening-indicator {
             display: inline-block;
             margin-left: 10px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--kandyan-gold);
         }
 
         .create-card-msg {
-            margin-top: 32px;
-            font-size: 0.85rem;
-            color: var(--charcoal-3);
+            margin-top: 28px;
+            font-size: 0.84rem;
+            color: var(--stone-dark);
         }
 
         .create-card-msg a {
-            color: var(--gold);
+            color: var(--temple-red);
             text-decoration: none;
         }
 
-        .create-card-msg a:hover { text-decoration: underline; }
+        .create-card-msg a:hover {
+            color: var(--kandyan-gold);
+            text-decoration: underline;
+        }
 
+        /* ── RECEIVED CARD ── */
+        #receivedCard .success-message {
+            font-style: italic;
+            background-color: var(--gold-glow);
+            color: var(--ink-2);
+            border-left-color: var(--kandyan-gold);
+        }
+
+        /* ── FOOTER ── */
         .vesak-footer {
             text-align: center;
-            margin-top: 60px;
-            padding: 24px 0;
-            border-top: 1px solid var(--ivory-3);
-            color: var(--charcoal-3);
-            font-size: 0.7rem;
-            letter-spacing: 0.14em;
+            margin-top: 64px;
+            padding: 36px 24px 28px;
+            border-top: 1px solid var(--stone-2);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .footer-label {
+            font-size: 0.62rem;
+            letter-spacing: 0.24em;
             text-transform: uppercase;
+            color: var(--stone-dark);
         }
 
-        #receivedCard .success-message {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.05rem;
-            font-style: italic;
+        .footer-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--temple-red);
+            font-size: 0.9rem;
+            font-weight: 300;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            padding: 10px 22px;
+            border: 1px solid var(--stone-2);
+            border-radius: var(--radius);
+            background-color: var(--white);
+            transition: all 0.25s;
         }
 
+        .footer-email:hover {
+            background: linear-gradient(135deg, var(--temple-red), var(--temple-dark));
+            color: var(--gold-pale);
+            border-color: var(--temple-dark);
+            box-shadow: 0 4px 16px rgba(92,15,15,0.18);
+        }
+
+        .footer-email svg {
+            flex-shrink: 0;
+            transition: stroke 0.25s;
+        }
+
+        .footer-divider {
+            width: 48px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--kandyan-gold), transparent);
+            margin: 0 auto 20px;
+        }
+
+        .footer-copy {
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--stone-dark);
+        }
+
+        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
-            .card { width: 180px; height: 245px; }
-            .form-section { padding: 32px 24px; }
-            h1 { font-size: 2.2rem; }
+            .card-grid-page { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .form-section { padding: 36px 24px; }
+            h1 { font-size: 2.1rem; }
+            header { padding: 56px 28px 48px; }
         }
 
         @media (max-width: 480px) {
-            .card { width: 140px; height: 188px; }
-            h1 { font-size: 1.8rem; }
+            .card-grid-page { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            h1 { font-size: 1.7rem; }
             .share-buttons { flex-direction: column; align-items: center; }
+            header { padding: 44px 20px 38px; }
+            .next-step-bar { flex-direction: column; gap: 14px; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Vesak Greetings</h1>
-            <p class="subtitle">Send beautiful Vesak wishes to your loved ones</p>
-            <div class="header-ornament">🪔 &nbsp; 🌸 &nbsp; 🙏</div>
+            <div class="header-inner">
+                <span class="header-top-ornament">☸ &nbsp; Vesak Samaramu &nbsp; ☸</span>
+                <h1>Vesak greetingS</h1>
+                <p class="subtitle">Share the light of Vesak with those you love</p>
+                <div class="header-ornament">🪔 &nbsp; 🌸 &nbsp; 🙏</div>
+                <div class="header-rule"></div>
+            </div>
         </header>
         
-        <div id="cardCreator" class="card-creator">
-            <h2>Step 1: Choose a card design</h2>
-            <div class="carousel-wrapper">
-                <button class="carousel-btn prev-btn" onclick="prevSlide()">&#8249;</button>
-                <div class="card-selection" id="cardCarousel">
-                    <div class="carousel-slide active">
-                        <div class="card" data-card="1" onclick="selectCard(1)">
-                            <img src="Card1.png" alt="Vesak card design 1">
-                            <div class="card-label">Lotus Design</div>
-                        </div>
-                        <div class="card" data-card="2" onclick="selectCard(2)">
-                            <img src="Card2.png" alt="Vesak card design 2">
-                            <div class="card-label">Buddha Design</div>
-                        </div>
-                        <div class="card" data-card="3" onclick="selectCard(3)">
-                            <img src="Card3.png" alt="Vesak card design 3">
-                            <div class="card-label">Lantern Design</div>
-                        </div>
-                        <div class="card" data-card="4" onclick="selectCard(4)">
-                            <img src="Card4.png" alt="Vesak card design 4">
-                            <div class="card-label">Temple Design</div>
-                        </div>
-                    </div>
-                    <div class="carousel-slide">
-                        <div class="card" data-card="5" onclick="selectCard(5)">
-                            <img src="Card5.png" alt="Vesak card design 5">
-                            <div class="card-label">Dharma Wheel</div>
-                        </div>
-                        <div class="card" data-card="6" onclick="selectCard(6)">
-                            <img src="Card6.png" alt="Vesak card design 6">
-                            <div class="card-label">Bodhi Tree</div>
-                        </div>
-                        <div class="card" data-card="7" onclick="selectCard(7)">
-                            <img src="Card7.png" alt="Vesak card design 7">
-                            <div class="card-label">Peace Doves</div>
-                        </div>
-                        <div class="card" data-card="8" onclick="selectCard(8)">
-                            <img src="Card8.png" alt="Vesak card design 8">
-                            <div class="card-label">Golden Stupa</div>
-                        </div>
-                    </div>
+        <!-- Page 1: Choose Design -->
+        <div id="pageDesign">
+            <h2>Choose a Card Design</h2>
+
+            <div class="card-grid-page active" id="gridPage1">
+                <div class="card" data-card="1" onclick="selectCard(1)">
+                    <img src="Card1.png" alt="Vesak card design 1">
                 </div>
-                <button class="carousel-btn next-btn" onclick="nextSlide()">&#8250;</button>
+                <div class="card" data-card="2" onclick="selectCard(2)">
+                    <img src="Card2.png" alt="Vesak card design 2">
+                </div>
+                <div class="card" data-card="3" onclick="selectCard(3)">
+                    <img src="Card3.png" alt="Vesak card design 3">
+                </div>
+                <div class="card" data-card="4" onclick="selectCard(4)">
+                    <img src="Card4.png" alt="Vesak card design 4">
+                </div>
             </div>
-            <div class="carousel-dots">
-                <span class="dot active" onclick="goToSlide(0)"></span>
-                <span class="dot" onclick="goToSlide(1)"></span>
+
+            <div class="card-grid-page" id="gridPage2">
+                <div class="card" data-card="5" onclick="selectCard(5)">
+                    <img src="Card5.png" alt="Vesak card design 5">
+                </div>
+                <div class="card" data-card="6" onclick="selectCard(6)">
+                    <img src="Card6.png" alt="Vesak card design 6">
+                </div>
+                <div class="card" data-card="7" onclick="selectCard(7)">
+                    <img src="Card7.png" alt="Vesak card design 7">
+                </div>
+                <div class="card" data-card="8" onclick="selectCard(8)">
+                    <img src="Card8.png" alt="Vesak card design 8">
+                </div>
             </div>
-            
+
+            <div class="grid-pagination">
+                <span class="dot active" onclick="goToGridPage(0)"></span>
+                <span class="dot" onclick="goToGridPage(1)"></span>
+            </div>
+
+            <div class="next-step-bar">
+                <p id="selectedHint" class="selected-hint">Select a card to continue</p>
+                <button id="continueBtn" onclick="goToPersonalize()" disabled>Personalise Card →</button>
+            </div>
+        </div>
+
+        <!-- Page 2: Personalise -->
+        <div id="pagePersonalize" class="hidden">
+            <div class="back-bar">
+                <button class="back-btn" onclick="goToDesign()">← Back</button>
+                <p class="back-hint">Personalise your card</p>
+            </div>
+
             <!-- Message Edit Modal -->
             <div id="messageEditModal">
                 <div class="modal-content">
@@ -661,25 +825,22 @@
                     <button onclick="saveShareMessage()">Save Message</button>
                 </div>
             </div>
-            
+
             <div class="form-section">
-                <h2>Step 2: Personalize your card</h2>
+                <h2>Personalise Your Card</h2>
                 <div id="cardForm">
                     <div class="form-group">
-                        <label for="senderName">Your Name:</label>
+                        <label for="senderName">Your Name</label>
                         <input type="text" id="senderName" placeholder="Enter your name">
                     </div>
-                    
                     <div class="form-group">
-                        <label for="recipientName">Recipient's Name:</label>
+                        <label for="recipientName">Recipient's Name</label>
                         <input type="text" id="recipientName" placeholder="Enter recipient's name">
                     </div>
-                    
                     <div class="form-group">
-                        <label for="personalMessage">Additional Personal Message (Optional):</label>
+                        <label for="personalMessage">Personal Message (Optional)</label>
                         <textarea id="personalMessage" placeholder="Write your personal message here..."></textarea>
                     </div>
-                    
                     <button onclick="createCard()">Create Card</button>
                 </div>
             </div>
@@ -753,42 +914,59 @@
         </div>
         
         <footer class="vesak-footer">
-            &copy; 2026 Vesak Greetings
+            <div class="footer-contact">
+                <span class="footer-label">Get in Touch</span>
+                <a href="mailto:iamdhanukad@gmail.com" class="footer-email">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+                    iamdhanukad@gmail.com
+                </a>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-copy">&copy; 2026 Vesak Greetings</div>
         </footer>
     </div>
 
     <script>
         let selectedCard = null;
-        let currentSlide = 0;
-        const totalSlides = 2;
+        let currentGridPage = 0;
+        const totalGridPages = 2;
 
-        function goToSlide(index) {
-            document.querySelectorAll('.carousel-slide')[currentSlide].classList.remove('active');
-            document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
-            currentSlide = index;
-            document.querySelectorAll('.carousel-slide')[currentSlide].classList.add('active');
-            document.querySelectorAll('.dot')[currentSlide].classList.add('active');
-            document.querySelector('.prev-btn').disabled = currentSlide === 0;
-            document.querySelector('.next-btn').disabled = currentSlide === totalSlides - 1;
+        // ── Grid pagination ──
+        function goToGridPage(index) {
+            document.querySelectorAll('.card-grid-page')[currentGridPage].classList.remove('active');
+            document.querySelectorAll('.grid-pagination .dot')[currentGridPage].classList.remove('active');
+            currentGridPage = index;
+            document.querySelectorAll('.card-grid-page')[currentGridPage].classList.add('active');
+            document.querySelectorAll('.grid-pagination .dot')[currentGridPage].classList.add('active');
         }
 
-        function prevSlide() {
-            if (currentSlide > 0) goToSlide(currentSlide - 1);
+        // ── Two-page navigation ──
+        function goToPersonalize() {
+            if (!selectedCard) return;
+            document.getElementById('pageDesign').classList.add('hidden');
+            document.getElementById('pagePersonalize').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+        function goToDesign() {
+            document.getElementById('pagePersonalize').classList.add('hidden');
+            document.getElementById('pageDesign').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Touch/swipe support
+        // Touch/swipe support for grid pages
         let touchStartX = 0;
         document.addEventListener('touchstart', e => {
-            if (e.target.closest('.carousel-wrapper')) touchStartX = e.touches[0].clientX;
+            if (e.target.closest('.card-grid-page') || e.target.closest('.grid-pagination')) 
+                touchStartX = e.touches[0].clientX;
         });
         document.addEventListener('touchend', e => {
-            if (!e.target.closest('.carousel-wrapper')) return;
+            if (!e.target.closest('.card-grid-page') && !e.target.closest('.grid-pagination')) return;
             const diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentGridPage < totalGridPages - 1) goToGridPage(currentGridPage + 1);
+                if (diff < 0 && currentGridPage > 0) goToGridPage(currentGridPage - 1);
+            }
         });
         let defaultShareMessage = "Here's a special Vesak greeting card I made for you! May the peace and light of Vesak bless your day. 🪔 🌸";
         let customShareMessage = defaultShareMessage;
@@ -796,28 +974,18 @@
         
         // Check if URL has parameters (someone received a card)
         window.onload = function() {
-            // Init carousel button states
-            document.querySelector('.prev-btn').disabled = true;
             const urlParams = new URLSearchParams(window.location.search);
-            
-            // First check if this is a shortened URL redirect
-            if (urlParams.has('code')) {
-                expandShortUrl(urlParams.get('code'));
-                return;
-            }
             
             // Regular card URL
             if (urlParams.has('card') && urlParams.has('from') && urlParams.has('to')) {
                 receivedCardParams = urlParams;
                 showReceivedCard(urlParams);
-            } else {
-                document.getElementById('cardCreator').classList.remove('hidden');
+                document.getElementById('pageDesign').classList.add('hidden');
             }
             
             // Add click listener for card flipping
             document.querySelectorAll('.card-preview').forEach(card => {
                 card.addEventListener('click', function(e) {
-                    // Don't flip if clicking on buttons or inputs
                     if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && 
                         e.target.tagName !== 'TEXTAREA' && !e.target.classList.contains('edit-message-btn')) {
                         this.classList.toggle('flipped');
@@ -829,14 +997,17 @@
         function selectCard(cardNumber) {
             selectedCard = cardNumber;
             if (typeof gtag !== 'undefined') gtag('event', 'select_card', { card_id: cardNumber });
-            
+
             // Remove selected class from all cards
-            document.querySelectorAll('.card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            // Add selected class to chosen card
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
+
+            // Add selected class to clicked card
             document.querySelector(`.card[data-card="${cardNumber}"]`).classList.add('selected');
+
+            // Enable continue button and update hint
+            const btn = document.getElementById('continueBtn');
+            btn.disabled = false;
+            document.getElementById('selectedHint').textContent = `Design ${cardNumber} selected`;
         }
         
         function createCard() {
@@ -857,8 +1028,8 @@
             // GA event: card created
             if (typeof gtag !== 'undefined') gtag('event', 'create_card', { card_id: selectedCard });
             
-            // Hide card creator and show preview
-            document.getElementById('cardCreator').classList.add('hidden');
+            // Hide personalise page and show preview
+            document.getElementById('pagePersonalize').classList.add('hidden');
             document.getElementById('cardPreview').classList.remove('hidden');
             
             // Update preview with the actual card image
@@ -905,8 +1076,9 @@
             if (typeof gtag !== 'undefined') gtag('event', 'view_card', { card_id: cardNumber });
             const message = params.get('msg') ? decodeURIComponent(params.get('msg')) : '';
             
-            // Hide card creator and show received card
-            document.getElementById('cardCreator').classList.add('hidden');
+            // Hide creator and show received card
+            document.getElementById('pageDesign').classList.add('hidden');
+            document.getElementById('pagePersonalize').classList.add('hidden');
             document.getElementById('cardPreview').classList.add('hidden');
             document.getElementById('receivedCard').classList.remove('hidden');
             
@@ -954,28 +1126,10 @@
             successMsg.classList.remove('hidden');
             setTimeout(() => successMsg.classList.add('hidden'), 3000);
         }
-        function expandShortUrl(code) {
-            // In a real implementation, this would query your database
-            // For this example, we'll show an error message
-            document.getElementById('cardCreator').classList.add('hidden');
-            document.getElementById('cardPreview').classList.add('hidden');
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.style.margin = '50px auto';
-            errorDiv.style.maxWidth = '600px';
-            errorDiv.innerHTML = `
-                <h2>URL Error</h2>
-                <p>The short URL code "${code}" is not valid or has expired.</p>
-                <p>Please request a new link from the sender or <a href="${window.location.pathname}">create your own card</a>.</p>
-            `;
-            document.querySelector('.container').appendChild(errorDiv);
-        }
-        
         function resetForm() {
-            // Reset form and show card creator again
-            document.getElementById('cardCreator').classList.remove('hidden');
             document.getElementById('cardPreview').classList.add('hidden');
+            document.getElementById('pageDesign').classList.remove('hidden');
+            document.getElementById('pagePersonalize').classList.add('hidden');
             
             // Clear form fields
             document.getElementById('senderName').value = '';
@@ -984,9 +1138,10 @@
             
             // Reset card selection
             selectedCard = null;
-            document.querySelectorAll('.card').forEach(card => {
-                card.classList.remove('selected');
-            });
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
+            document.getElementById('continueBtn').disabled = true;
+            document.getElementById('selectedHint').textContent = 'Select a card to continue';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         function shareCard() {
@@ -1077,18 +1232,15 @@
         // Function to start creating a new card from received card view
         function startNewCard() {
             document.getElementById('receivedCard').classList.add('hidden');
-            document.getElementById('cardCreator').classList.remove('hidden');
-            
-            // Reset form fields
+            document.getElementById('pageDesign').classList.remove('hidden');
+            selectedCard = null;
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
+            document.getElementById('continueBtn').disabled = true;
+            document.getElementById('selectedHint').textContent = 'Select a card to continue';
             document.getElementById('senderName').value = '';
             document.getElementById('recipientName').value = '';
             document.getElementById('personalMessage').value = '';
-            
-            // Reset card selection
-            selectedCard = null;
-            document.querySelectorAll('.card').forEach(card => {
-                card.classList.remove('selected');
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
